@@ -8,14 +8,26 @@ pip install -r requirements.txt
 ```
 
 ### Step 2: Set Up Your API Key
+
+**Choose your LLM provider** (OpenAI or DeepSeek):
+
 1. Copy the example environment file:
    ```bash
    cp .env.example .env
    ```
 
-2. Edit `.env` and add your OpenAI API key:
+2. Edit `.env` and configure your provider:
+
+   **Option A: Using OpenAI**
    ```
-   OPENAI_API_KEY=sk-your-key-here
+   LLM_PROVIDER=openai
+   OPENAI_API_KEY=sk-your-openai-key-here
+   ```
+
+   **Option B: Using DeepSeek**
+   ```
+   LLM_PROVIDER=deepseek
+   DEEPSEEK_API_KEY=your-deepseek-key-here
    ```
 
 ### Step 3: Run the Agent
@@ -50,8 +62,8 @@ Results are saved to the `results/` directory as markdown files with:
 **Issue**: `ModuleNotFoundError`  
 **Solution**: Run `pip install -r requirements.txt`
 
-**Issue**: `OpenAI API key not found`  
-**Solution**: Create a `.env` file with your `OPENAI_API_KEY`
+**Issue**: `DeepSeek API key not found`  
+**Solution**: Create a `.env` file with your `DEEPSEEK_API_KEY`
 
 **Issue**: Google Scholar is slow  
 **Solution**: Reduce `max_papers` parameter (default is 10, try 5)

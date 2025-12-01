@@ -9,14 +9,55 @@ load_dotenv()
 
 
 class QueryClarifier:
-    """Clarifies and structures research queries using OpenAI."""
+    """Clarifies and structures research queries using OpenAI or DeepSeek."""
     
-    def __init__(self, model_name: str = "gpt-4o-mini", temperature: float = 0.3):
-        self.llm = ChatOpenAI(
-            model=model_name,
-            temperature=temperature,
-            api_key=os.getenv("OPENAI_API_KEY")
-        )
+    def __init__(self, model_name: str = None, temperature: float = 0.3, provider: str = None):
+        """
+        Initialize the query clarifier.
+        
+        Args:
+            model_name: Model name to use (auto-selected based on provider if None)
+            temperature: Temperature for generation
+            provider: LLM provider ("openai" or "deepseek"). If None, reads from LLM_PROVIDER env var
+        """
+        # Determine provider
+        if provider is None:
+            provider = os.getenv("LLM_PROVIDER", "openai").lower()
+        
+        self.provider = provider
+        
+        # Set default model based on provider
+        if model_name is None:
+            if provider == "deepseek":
+                model_name = "deepseek-chat"
+            else:
+                model_name = "gpt-4o-mini"
+        
+        # Initialize LLM based on provider
+        if provider == "deepseek":
+            api_key = os.getenv("DEEPSEEK_API_KEY")
+            if not api_key:
+                raise ValueError("DEEPSEEK_API_KEY not found in environment variables")
+            
+            self.llm = ChatOpenAI(
+                model=model_name,
+                temperature=temperature,
+                api_key=api_key,
+                base_url="https://api.deepseek.com"
+            )
+            print(f"🤖 Using DeepSeek API with model: {model_name}")
+        else:
+            api_key = os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                raise ValueError("OPENAI_API_KEY not found in environment variables")
+            
+            self.llm = ChatOpenAI(
+                model=model_name,
+                temperature=temperature,
+                api_key=api_key
+            )
+            print(f"🤖 Using OpenAI API with model: {model_name}")
+        
         self.parser = PydanticOutputParser(pydantic_object=ClarifiedQuery)
         
         self.prompt = ChatPromptTemplate.from_messages([

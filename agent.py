@@ -11,8 +11,15 @@ from pathlib import Path
 class ResearchAgent:
     """LangGraph-based research agent that clarifies queries and fetches papers."""
     
-    def __init__(self, max_papers: int = 10):
-        self.query_clarifier = QueryClarifier()
+    def __init__(self, max_papers: int = 10, provider: str = None):
+        """
+        Initialize the research agent.
+        
+        Args:
+            max_papers: Maximum number of papers to fetch
+            provider: LLM provider ("openai" or "deepseek"). If None, reads from env
+        """
+        self.query_clarifier = QueryClarifier(provider=provider)
         self.scholar_fetcher = ScholarFetcher(max_results=max_papers)
         self.graph = self._build_graph()
     

@@ -31,7 +31,10 @@ def example_query_clarification():
     print("EXAMPLE 2: Query Clarification Only")
     print("="*60)
     
-    clarifier = QueryClarifier()
+    # You can specify the provider explicitly or let it use env variable
+    # clarifier = QueryClarifier(provider="openai")  # Force OpenAI
+    # clarifier = QueryClarifier(provider="deepseek")  # Force DeepSeek
+    clarifier = QueryClarifier()  # Use LLM_PROVIDER from .env
     
     queries = [
         "AI for healthcare",

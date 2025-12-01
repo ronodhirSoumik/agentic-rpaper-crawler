@@ -18,9 +18,26 @@ pip install -r requirements.txt
 ```
 
 2. **Configure Environment Variables**
+
+Choose your LLM provider (OpenAI or DeepSeek):
+
 ```bash
 cp .env.example .env
-# Edit .env and add your OpenAI API key
+# Edit .env and set:
+# - LLM_PROVIDER=openai or deepseek
+# - Add the corresponding API key
+```
+
+**For OpenAI:**
+```
+LLM_PROVIDER=openai
+OPENAI_API_KEY=sk-your-key-here
+```
+
+**For DeepSeek:**
+```
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your-key-here
 ```
 
 3. **Run the Agent**
@@ -77,4 +94,4 @@ The agent creates markdown files in the `results/` directory with content like:
 ## Requirements
 
 - Python 3.9+
-- OpenAI API key
+- OpenAI API key OR DeepSeek API key
