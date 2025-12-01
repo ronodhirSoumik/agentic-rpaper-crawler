@@ -17,7 +17,7 @@ class ResearchRequest(BaseModel):
     """Request model for research queries."""
     query: str = Field(..., description="The research query to process", min_length=3)
     max_papers: Optional[int] = Field(default=10, description="Maximum number of papers to fetch", ge=1, le=50)
-    provider: Optional[str] = Field(default=None, description="LLM provider: 'openai' or 'deepseek' (defaults to env LLM_PROVIDER)")
+    provider: Optional[str] = Field(default=None, description="LLM provider: 'openai', 'deepseek', or 'openrouter' (defaults to env LLM_PROVIDER)")
 
 
 class ResearchResponse(BaseModel):

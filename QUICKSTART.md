@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 ### Step 2: Set Up Your API Key
 
-**Choose your LLM provider** (OpenAI or DeepSeek):
+**Choose your LLM provider** (OpenAI, DeepSeek, or OpenRouter):
 
 1. Copy the example environment file:
    ```bash
@@ -28,6 +28,12 @@ pip install -r requirements.txt
    ```
    LLM_PROVIDER=deepseek
    DEEPSEEK_API_KEY=your-deepseek-key-here
+   ```
+
+   **Option C: Using OpenRouter**
+   ```
+   LLM_PROVIDER=openrouter
+   OPENROUTER_API_KEY=sk-or-your-openrouter-key-here
    ```
 
 ### Step 3: Run the Agent

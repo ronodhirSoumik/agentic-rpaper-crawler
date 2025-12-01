@@ -2,61 +2,49 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from models import ClarifiedQuery
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from llm_provider import LLMProviderProcessor, LLMConfig
 
 
 class QueryClarifier:
-    """Clarifies and structures research queries using OpenAI or DeepSeek."""
+    """Clarifies and structures research queries using configured LLM provider."""
     
-    def __init__(self, model_name: str = None, temperature: float = 0.3, provider: str = None):
+    def __init__(
+        self,
+        provider: str = None,
+        model_name: str = None,
+        temperature: float = 0.3
+    ):
         """
         Initialize the query clarifier.
         
         Args:
-            model_name: Model name to use (auto-selected based on provider if None)
-            temperature: Temperature for generation
-            provider: LLM provider ("openai" or "deepseek"). If None, reads from LLM_PROVIDER env var
+            provider: LLM provider ("openai", "deepseek", "openrouter").
+                     If None, reads from LLM_PROVIDER env variable.
+            model_name: Model name to use (auto-selected based on provider if None).
+            temperature: Temperature for generation.
         """
-        # Determine provider
-        if provider is None:
-            provider = os.getenv("LLM_PROVIDER", "openai").lower()
+        # Get LLM configuration from processor
+        self.config = LLMProviderProcessor.get_config(
+            provider=provider,
+            model_name=model_name,
+            temperature=temperature
+        )
         
-        self.provider = provider
+        # Initialize LLM with configuration
+        llm_kwargs = {
+            "model": self.config.model_name,
+            "temperature": self.config.temperature,
+            "api_key": self.config.api_key
+        }
         
-        # Set default model based on provider
-        if model_name is None:
-            if provider == "deepseek":
-                model_name = "deepseek-chat"
-            else:
-                model_name = "gpt-4o-mini"
+        # Add base_url if specified (for DeepSeek and OpenRouter)
+        if self.config.base_url:
+            llm_kwargs["base_url"] = self.config.base_url
         
-        # Initialize LLM based on provider
-        if provider == "deepseek":
-            api_key = os.getenv("DEEPSEEK_API_KEY")
-            if not api_key:
-                raise ValueError("DEEPSEEK_API_KEY not found in environment variables")
-            
-            self.llm = ChatOpenAI(
-                model=model_name,
-                temperature=temperature,
-                api_key=api_key,
-                base_url="https://api.deepseek.com"
-            )
-            print(f"🤖 Using DeepSeek API with model: {model_name}")
-        else:
-            api_key = os.getenv("OPENAI_API_KEY")
-            if not api_key:
-                raise ValueError("OPENAI_API_KEY not found in environment variables")
-            
-            self.llm = ChatOpenAI(
-                model=model_name,
-                temperature=temperature,
-                api_key=api_key
-            )
-            print(f"🤖 Using OpenAI API with model: {model_name}")
+        self.llm = ChatOpenAI(**llm_kwargs)
+        
+        # Log which provider is being used
+        print(f"🤖 Using {self.config.provider.upper()} with model: {self.config.model_name}")
         
         self.parser = PydanticOutputParser(pydantic_object=ClarifiedQuery)
         

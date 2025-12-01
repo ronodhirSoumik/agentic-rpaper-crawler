@@ -1,8 +1,8 @@
 # Provider Configuration Guide
 
-## Choosing Between OpenAI and DeepSeek
+## Choosing Your LLM Provider
 
-This application supports two LLM providers for query clarification:
+This application supports three LLM providers for query clarification:
 
 ### OpenAI
 - **Model**: `gpt-4o-mini` (default)
@@ -15,6 +15,13 @@ This application supports two LLM providers for query clarification:
 - **Pros**: Cost-effective alternative
 - **Cons**: May have different performance characteristics
 - **Get API Key**: https://platform.deepseek.com/
+
+### OpenRouter
+- **Model**: `openai/gpt-4o-mini` (default)
+- **Pros**: Access to multiple models through one API, flexible pricing
+- **Cons**: Additional abstraction layer
+- **Get API Key**: https://openrouter.ai/keys
+- **Note**: Can access various models (OpenAI, Anthropic, Google, etc.)
 
 ## Configuration
 
@@ -30,6 +37,10 @@ OPENAI_API_KEY=sk-your-key-here
 # For DeepSeek
 LLM_PROVIDER=deepseek
 DEEPSEEK_API_KEY=your-key-here
+
+# For OpenRouter
+LLM_PROVIDER=openrouter
+OPENROUTER_API_KEY=sk-or-your-key-here
 ```
 
 ### Method 2: Programmatic Selection
@@ -45,6 +56,9 @@ agent = ResearchAgent(provider="openai")
 
 # Force DeepSeek
 agent = ResearchAgent(provider="deepseek")
+
+# Force OpenRouter
+agent = ResearchAgent(provider="openrouter")
 ```
 
 **API Request:**
@@ -53,7 +67,7 @@ curl -X POST "http://localhost:8000/research" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "machine learning for climate change",
-    "provider": "deepseek"
+    "provider": "openrouter"
   }'
 ```
 
@@ -74,6 +88,18 @@ clarifier = QueryClarifier(
 clarifier = QueryClarifier(
     provider="deepseek",
     model_name="deepseek-chat"
+)
+
+# Use Claude via OpenRouter
+clarifier = QueryClarifier(
+    provider="openrouter",
+    model_name="anthropic/claude-3-sonnet"
+)
+
+# Use Gemini via OpenRouter
+clarifier = QueryClarifier(
+    provider="openrouter",
+    model_name="google/gemini-pro"
 )
 ```
 
