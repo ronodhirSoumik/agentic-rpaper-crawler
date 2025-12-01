@@ -32,8 +32,9 @@ def example_query_clarification():
     print("="*60)
     
     # You can specify the provider explicitly or let it use env variable
-    # clarifier = QueryClarifier(provider="openai")  # Force OpenAI
-    # clarifier = QueryClarifier(provider="deepseek")  # Force DeepSeek
+    # clarifier = QueryClarifier(provider="openai")      # Force OpenAI
+    # clarifier = QueryClarifier(provider="deepseek")    # Force DeepSeek
+    # clarifier = QueryClarifier(provider="openrouter")  # Force OpenRouter
     clarifier = QueryClarifier()  # Use LLM_PROVIDER from .env
     
     queries = [

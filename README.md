@@ -19,12 +19,12 @@ pip install -r requirements.txt
 
 2. **Configure Environment Variables**
 
-Choose your LLM provider (OpenAI or DeepSeek):
+Choose your LLM provider (OpenAI, DeepSeek, or OpenRouter):
 
 ```bash
 cp .env.example .env
 # Edit .env and set:
-# - LLM_PROVIDER=openai or deepseek
+# - LLM_PROVIDER=openai, deepseek, or openrouter
 # - Add the corresponding API key
 ```
 
@@ -38,6 +38,12 @@ OPENAI_API_KEY=sk-your-key-here
 ```
 LLM_PROVIDER=deepseek
 DEEPSEEK_API_KEY=your-key-here
+```
+
+**For OpenRouter:**
+```
+LLM_PROVIDER=openrouter
+OPENROUTER_API_KEY=sk-or-your-key-here
 ```
 
 3. **Run the Agent**
@@ -94,4 +100,4 @@ The agent creates markdown files in the `results/` directory with content like:
 ## Requirements
 
 - Python 3.9+
-- OpenAI API key OR DeepSeek API key
+- API key for one of: OpenAI, DeepSeek, or OpenRouter
