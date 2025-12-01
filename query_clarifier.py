@@ -44,7 +44,7 @@ class QueryClarifier:
         self.llm = ChatOpenAI(**llm_kwargs)
         
         # Log which provider is being used
-        print(f"🤖 Using {self.config.provider.upper()} with model: {self.config.model_name}")
+        print(f"Using {self.config.provider.upper()} with model: {self.config.model_name}")
         
         self.parser = PydanticOutputParser(pydantic_object=ClarifiedQuery)
         

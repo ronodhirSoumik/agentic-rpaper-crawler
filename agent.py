@@ -44,7 +44,7 @@ class ResearchAgent:
     
     def _clarify_query_node(self, state: AgentState) -> Dict[str, Any]:
         """Node to clarify the research query."""
-        print(f"\n🔍 Clarifying query: {state.original_query}")
+        print(f"\nClarifying query: {state.original_query}")
         
         try:
             clarified = self.query_clarifier.clarify(state.original_query)
@@ -64,7 +64,7 @@ class ResearchAgent:
         if state.error:
             return {}
         
-        print(f"\n📚 Fetching papers from Google Scholar...")
+        print(f"\nFetching papers from Google Scholar...")
         
         try:
             # Use the clarified query and search terms
@@ -86,7 +86,7 @@ class ResearchAgent:
         if state.error:
             return {}
         
-        print(f"\n📝 Writing results to markdown file...")
+        print(f"\nWriting results to markdown file...")
         
         try:
             # Create results directory if it doesn't exist
