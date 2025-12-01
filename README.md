@@ -86,14 +86,14 @@ curl -X POST "http://localhost:8000/research" \
 The agent creates markdown files in the `results/` directory with content like:
 
 ```markdown
-# Research Results: Machine Learning for Climate Change
+# Research Results: PerFed Personalized Fedeated Learning
 
-**Clarified Query**: Applications of machine learning techniques in climate change prediction and mitigation
+**Clarified Query**: Personalized Federated Learning, PerFed (Personalized Federated), Federated Learning Personalization, Client-Specific Model Adaptation
 
 ## Papers Found
 
-1. [Deep Learning for Climate Model Emulation](https://scholar.google.com/...)
-2. [Machine Learning Applications in Climate Science](https://scholar.google.com/...)
+1. [PerFED-GAN: Personalized federated learning via generative adversarial networks](https://ieeexplore.ieee.org/abstract/document/9766407/)
+2. [Perfedmask: Personalized federated learning with optimized masking vectors](https://openreview.net/forum?id=hxEIgUXLFF)
 ...
 ```
 
@@ -101,3 +101,4 @@ The agent creates markdown files in the `results/` directory with content like:
 
 - Python 3.9+
 - API key for one of: OpenAI, DeepSeek, or OpenRouter
+- Scholarly - for Google Scholar Feed Crawlng
