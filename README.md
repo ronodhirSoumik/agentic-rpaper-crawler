@@ -1,0 +1,80 @@
+# AI Research Agent with LangGraph
+
+An intelligent research assistant that uses LangGraph to clarify research queries, fetch relevant papers from Google Scholar, and save results to markdown files.
+
+## Features
+
+- **Query Clarification**: Uses OpenAI with structured output parsing to refine and structure research queries
+- **Google Scholar Integration**: Fetches relevant research papers using the Scholarly library
+- **LangGraph Workflow**: Implements a multi-step agent workflow with state management
+- **FastAPI Server**: Provides a REST API for easy interaction
+- **Markdown Output**: Saves research results with paper names and links to markdown files
+
+## Setup
+
+1. **Install Dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+2. **Configure Environment Variables**
+```bash
+cp .env.example .env
+# Edit .env and add your OpenAI API key
+```
+
+3. **Run the Agent**
+
+### Option 1: Direct Python Script
+```bash
+python agent.py "your research query here"
+```
+
+### Option 2: FastAPI Server
+```bash
+python api_server.py
+```
+
+Then make a POST request:
+```bash
+curl -X POST "http://localhost:8000/research" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "machine learning for climate change"}'
+```
+
+## Project Structure
+
+- `agent.py` - Main LangGraph agent implementation
+- `query_clarifier.py` - OpenAI-based query clarification with structured output
+- `scholar_fetcher.py` - Google Scholar API integration
+- `api_server.py` - FastAPI server for the research agent
+- `models.py` - Pydantic models for structured data
+- `results/` - Directory where markdown results are saved
+
+## How It Works
+
+1. **Query Input**: User provides a research query
+2. **Clarification**: Agent uses OpenAI to clarify and structure the query
+3. **Paper Fetching**: Searches Google Scholar for relevant papers
+4. **Result Writing**: Saves paper names and links to a markdown file
+
+## Example Output
+
+The agent creates markdown files in the `results/` directory with content like:
+
+```markdown
+# Research Results: Machine Learning for Climate Change
+
+**Clarified Query**: Applications of machine learning techniques in climate change prediction and mitigation
+
+## Papers Found
+
+1. [Deep Learning for Climate Model Emulation](https://scholar.google.com/...)
+2. [Machine Learning Applications in Climate Science](https://scholar.google.com/...)
+...
+```
+
+## Requirements
+
+- Python 3.9+
+- OpenAI API key
