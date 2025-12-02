@@ -17,7 +17,7 @@ class ResearchAgent:
         
         Args:
             max_papers: Maximum number of papers to fetch
-            provider: LLM provider ("openai" or "deepseek"). If None, reads from env
+            provider: LLM provider ("openai", "deepseek", "openrouter", "gemini"). If None, reads from env
         """
         self.query_clarifier = QueryClarifier(provider=provider)
         self.scholar_fetcher = ScholarFetcher(max_results=max_papers)

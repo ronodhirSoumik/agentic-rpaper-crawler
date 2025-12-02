@@ -19,12 +19,12 @@ pip install -r requirements.txt
 
 2. **Configure Environment Variables**
 
-Choose your LLM provider (OpenAI, DeepSeek, or OpenRouter):
+Choose your LLM provider (OpenAI, DeepSeek, OpenRouter, or Gemini):
 
 ```bash
 cp .env.example .env
 # Edit .env and set:
-# - LLM_PROVIDER=openai, deepseek, or openrouter
+# - LLM_PROVIDER=openai, deepseek, openrouter, or gemini
 # - Add the corresponding API key
 ```
 
@@ -44,6 +44,12 @@ DEEPSEEK_API_KEY=your-key-here
 ```
 LLM_PROVIDER=openrouter
 OPENROUTER_API_KEY=sk-or-your-key-here
+```
+
+**For Gemini:**
+```
+LLM_PROVIDER=gemini
+GOOGLE_API_KEY=your-google-api-key-here
 ```
 
 3. **Run the Agent**
@@ -100,5 +106,5 @@ The agent creates markdown files in the `results/` directory with content like:
 ## Requirements
 
 - Python 3.9+
-- API key for one of: OpenAI, DeepSeek, or OpenRouter
+- API key for one of: OpenAI, DeepSeek, OpenRouter, or Gemini
 - Scholarly - for Google Scholar Feed Crawlng

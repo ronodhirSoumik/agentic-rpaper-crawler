@@ -2,7 +2,7 @@
 
 ## Choosing Your LLM Provider
 
-This application supports three LLM providers for query clarification:
+This application supports four LLM providers for query clarification:
 
 ### OpenAI
 - **Model**: `gpt-4o-mini` (default)
@@ -17,11 +17,17 @@ This application supports three LLM providers for query clarification:
 - **Get API Key**: https://platform.deepseek.com/
 
 ### OpenRouter
-- **Model**: `openai/gpt-4o-mini` (default)
+- **Model**: `alibaba/tongyi-deepresearch-30b-a3b:free` (default)
 - **Pros**: Access to multiple models through one API, flexible pricing
 - **Cons**: Additional abstraction layer
 - **Get API Key**: https://openrouter.ai/keys
 - **Note**: Can access various models (OpenAI, Anthropic, Google, etc.)
+
+### Gemini
+- **Model**: `gemini-2.5-flash` (default)
+- **Pros**: Fast, cost-effective, good quality from Google
+- **Cons**: May have different capabilities than GPT models
+- **Get API Key**: https://aistudio.google.com/apikey
 
 ## Configuration
 
@@ -41,6 +47,10 @@ DEEPSEEK_API_KEY=your-key-here
 # For OpenRouter
 LLM_PROVIDER=openrouter
 OPENROUTER_API_KEY=sk-or-your-key-here
+
+# For Gemini
+LLM_PROVIDER=gemini
+GOOGLE_API_KEY=your-google-api-key-here
 ```
 
 ### Method 2: Programmatic Selection
@@ -59,6 +69,9 @@ agent = ResearchAgent(provider="deepseek")
 
 # Force OpenRouter
 agent = ResearchAgent(provider="openrouter")
+
+# Force Gemini
+agent = ResearchAgent(provider="gemini")
 ```
 
 **API Request:**
@@ -100,6 +113,12 @@ clarifier = QueryClarifier(
 clarifier = QueryClarifier(
     provider="openrouter",
     model_name="google/gemini-pro"
+)
+
+# Use Gemini directly
+clarifier = QueryClarifier(
+    provider="gemini",
+    model_name="gemini-2.5-flash"
 )
 ```
 

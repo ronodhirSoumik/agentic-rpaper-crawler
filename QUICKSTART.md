@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 ### Step 2: Set Up Your API Key
 
-**Choose your LLM provider** (OpenAI, DeepSeek, or OpenRouter):
+**Choose your LLM provider** (OpenAI, DeepSeek, OpenRouter, or Gemini):
 
 1. Copy the example environment file:
    ```bash
@@ -34,6 +34,12 @@ pip install -r requirements.txt
    ```
    LLM_PROVIDER=openrouter
    OPENROUTER_API_KEY=sk-or-your-openrouter-key-here
+   ```
+
+   **Option D: Using Gemini**
+   ```
+   LLM_PROVIDER=gemini
+   GOOGLE_API_KEY=your-google-api-key-here
    ```
 
 ### Step 3: Run the Agent
