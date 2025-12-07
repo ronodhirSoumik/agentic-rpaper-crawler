@@ -4,11 +4,11 @@
 
 ### Core Features (All Implemented)
 
-1. **✅ Query Clarification with OpenAI/DeepSeek**
+1. **✅ Query Clarification with Multiple LLM Providers**
    - Uses LangChain with structured output parsing
    - Pydantic models for type-safe data handling
    - Extracts key concepts, research domain, and search terms
-   - **NEW**: Supports both OpenAI and DeepSeek APIs
+   - Supports OpenAI, DeepSeek, OpenRouter, and Gemini APIs
 
 2. **✅ Google Scholar Integration**
    - Uses the `scholarly` library
@@ -36,16 +36,20 @@
 
 ### Provider Flexibility (NEW)
 
-Users can now choose between **OpenAI** or **DeepSeek** for query clarification:
+Users can now choose between **OpenAI**, **DeepSeek**, **OpenRouter**, or **Gemini** for query clarification:
 
 #### Configuration Methods
 
 **Method 1: Environment Variable (.env file)**
 ```bash
-LLM_PROVIDER=openai  # or "deepseek"
+LLM_PROVIDER=openai  # or "deepseek", "openrouter", "gemini"
 OPENAI_API_KEY=sk-...
 # or
 DEEPSEEK_API_KEY=...
+# or
+OPENROUTER_API_KEY=sk-or-...
+# or
+GOOGLE_API_KEY=...
 ```
 
 **Method 2: Programmatic**
@@ -63,6 +67,8 @@ agent = ResearchAgent(provider="deepseek")
 #### Default Models
 - **OpenAI**: `gpt-4o-mini`
 - **DeepSeek**: `deepseek-chat`
+- **OpenRouter**: `alibaba/tongyi-deepresearch-30b-a3b:free`
+- **Gemini**: `gemini-2.5-flash`
 
 Custom models can be specified via `QueryClarifier(model_name="...")`
 
@@ -163,7 +169,7 @@ All dependencies are compatible and tested:
 ### Key Improvements Made
 
 1. **✅ Fixed dependency conflict** - Updated `langchain-core` to 0.3.17
-2. **✅ Added provider flexibility** - Support for OpenAI and DeepSeek
+2. **✅ Added provider flexibility** - Support for OpenAI, DeepSeek, OpenRouter, and Gemini
 3. **✅ Comprehensive documentation** - README, QUICKSTART, PROVIDER_GUIDE
 4. **✅ Example scripts** - Multiple usage examples
 5. **✅ Type safety** - Pydantic models throughout
@@ -174,7 +180,7 @@ All dependencies are compatible and tested:
 
 The agent is production-ready with:
 - ✅ All requested features implemented
-- ✅ Flexible provider selection (OpenAI/DeepSeek)
+- ✅ Flexible provider selection (OpenAI/DeepSeek/OpenRouter/Gemini)
 - ✅ Comprehensive documentation
 - ✅ Working examples
 - ✅ REST API interface

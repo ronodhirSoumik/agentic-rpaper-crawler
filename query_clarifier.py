@@ -18,7 +18,7 @@ class QueryClarifier:
         Initialize the query clarifier.
         
         Args:
-            provider: LLM provider ("openai", "deepseek", "openrouter").
+            provider: LLM provider ("openai", "deepseek", "openrouter", "gemini").
                      If None, reads from LLM_PROVIDER env variable.
             model_name: Model name to use (auto-selected based on provider if None).
             temperature: Temperature for generation.
@@ -37,7 +37,7 @@ class QueryClarifier:
             "api_key": self.config.api_key
         }
         
-        # Add base_url if specified (for DeepSeek and OpenRouter)
+        # Add base_url if specified (for DeepSeek, OpenRouter, Gemini)
         if self.config.base_url:
             llm_kwargs["base_url"] = self.config.base_url
         

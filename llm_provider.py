@@ -26,7 +26,7 @@ class LLMProviderProcessor:
     """
     Centralized processor for LLM provider configurations.
     
-    Handles configuration for OpenAI, DeepSeek, and OpenRouter providers.
+    Handles configuration for OpenAI, DeepSeek, OpenRouter, and Gemini providers.
     Reads from environment variables and provides a unified interface.
     """
     
@@ -46,6 +46,11 @@ class LLMProviderProcessor:
             "model_name": "alibaba/tongyi-deepresearch-30b-a3b:free",
             "base_url": "https://openrouter.ai/api/v1",
             "api_key_env": "OPENROUTER_API_KEY"
+        },
+        "gemini": {
+            "model_name": "gemini-2.5-flash",
+            "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+            "api_key_env": "GOOGLE_API_KEY"
         }
     }
     
@@ -60,7 +65,7 @@ class LLMProviderProcessor:
         Get LLM configuration for the specified provider.
         
         Args:
-            provider: Provider name ("openai", "deepseek", "openrouter").
+            provider: Provider name ("openai", "deepseek", "openrouter", "gemini").
                      If None, reads from LLM_PROVIDER env variable.
             model_name: Model name to use. If None, uses provider default.
             temperature: Temperature for generation.
@@ -134,7 +139,7 @@ if __name__ == "__main__":
     print(f"Available providers: {LLMProviderProcessor.get_available_providers()}\n")
     
     # Test each provider (will fail if API keys not set)
-    for provider in ["openai", "deepseek", "openrouter"]:
+    for provider in ["openai", "deepseek", "openrouter", "gemini"]:
         try:
             config = LLMProviderProcessor.get_config(provider=provider)
             print(f"✓ {provider.upper()} Configuration:")
